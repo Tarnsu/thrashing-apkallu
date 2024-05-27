@@ -10,12 +10,18 @@ public class LogicScript : MonoBehaviour
     public Text scoreText;
     public GameObject gameOverScreen;
     public GameObject gameQuit;
+    public int debugValue = 0;
+    public AudioSource dingSound;
 
-    [ContextMenu("Increase Score")]
+    
     public void addScore(int scoreToAdd)
     {
-        playerScore += scoreToAdd;
-        scoreText.text = playerScore.ToString();
+        if (gameOverScreen.activeInHierarchy == false)
+        {
+            playerScore += scoreToAdd;
+            scoreText.text = playerScore.ToString();
+            dingSound.Play();
+        }
     }
 
     public void restartGame()
@@ -31,5 +37,14 @@ public class LogicScript : MonoBehaviour
     public void doExitGame()
     {
         Application.Quit();
+    }
+
+    [ContextMenu("Increase Debug Value")]
+    public void addDebug()
+    {
+        if (gameOverScreen.activeInHierarchy == false)
+        {
+            debugValue++;
+        }
     }
 }
